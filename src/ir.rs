@@ -35,4 +35,19 @@ pub struct List{
 pub struct ListItem{
     pub blocks: Vec<Block>,
 }
+#[derive(Debug, Clone, PartialEq)]
+pub struct Table{
+    pub rows: Vec<Row>,
+}
+#[derive(Debug, Clone, PartialEq)]
+pub struct Row{
+    pub cells: Vec<Cell>,
+    pub is_header: bool,
+}
+#[derive(Debug, Clone, PartialEq)]
+pub struct Cell{
+    pub col_span:u32,
+    pub row_span:u32,
+    pub blocks: Vec<Block>,
+}
 
