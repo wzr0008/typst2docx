@@ -1,4 +1,4 @@
-pub(crate) mod ir;
+
 #[derive(Debug, Clone, PartialEq)]
 pub enum Inline{
     Text(String),
