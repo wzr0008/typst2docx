@@ -1,0 +1,32 @@
+use crate::ir::Block::Heading;
+use crate::ir::{Block, Document};
+
+pub fn document_xml(doc: &Document) -> String {
+    let mut out = String::new();
+    out.push_str("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+    let w = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
+    let m = "http://schemas.openxmlformats.org/officeDocument/2006/math";
+    let r = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
+    let part = format!(
+        "<w:document xmlns:w={} xmlns:m={} xmlns:r={}>
+  <w:body>",
+        w, m, r
+    );
+    out.push_str(&part);
+    for block in &doc.blocks {
+        render_block(block, &mut out);
+    }
+    out.push_str("<w:sectPr></w:sectPr>");
+    out.push_str("</w:body></w:document>");
+    return out;
+}
+pub fn render_block(block: &Block, out: &mut String) {
+    match block {
+        Heading { level, inlines } => {
+            let lvl = clamp(level, 1, 6);
+            out.push_str(
+                format!("<w:p><w:pPr><w:pStyle w:val=\"Heading {}\"/></w:pPr>", lvl).as_str(),
+            );
+        }
+    }
+}
