@@ -25,7 +25,7 @@ pub fn document_xml(doc: &Document) -> String {
 pub fn render_block(block: &Block, out: &mut String) {
     match block {
         Heading { level, inlines } => {
-            let lvl = (*level).clamp(1,6);
+            let lvl = (*level).clamp(1, 6);
             out.push_str(
                 format!("<w:p><w:pPr><w:pStyle w:val=\"Heading{}\"/></w:pPr>", lvl).as_str(),
             );
@@ -38,7 +38,10 @@ pub fn render_block(block: &Block, out: &mut String) {
             out.push_str("</w:p>");
         }
         Block::List(list) => todo!(),
-        Block::Table(table)=>todo!(),
-        
+        Block::Table(table) => todo!(),
+        Block::DisplayMath(math) =>  todo!(),
+        Block::CodeBlock(code) => todo!(),
     }
 }
+
+pub fn reader_inlines(inlines:&Vec<Inline>,)

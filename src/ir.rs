@@ -49,3 +49,48 @@ pub struct Cell {
     pub row_span: u32,
     pub blocks: Vec<Block>,
 }
+
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct RunProps {
+    pub bold: bool,
+    pub italic: bool,
+    pub code: bool,
+    pub link: bool,
+}
+impl RunProps {
+    fn with_bold(&self) -> RunProps {
+        RunProps {
+            bold: true,
+            code: self.code,
+            italic: self.italic,
+            link: self.link,
+        }
+    }
+    fn with_italic(&self) -> RunProps {
+        RunProps {
+            italic: true,
+            bold: self.bold,
+            code: self.code,
+            link: self.link,
+        }
+    }
+    fn with_code(&self) -> RunProps {
+        RunProps {
+            code: true,
+            bold: self.bold,
+            italic: self.italic,
+            link: self.link,
+        }
+    }
+    fn with_link(&self) -> RunProps {
+        RunProps {
+            link: true,
+            bold: self.bold,
+            italic: self.italic,
+            code: self.code,
+        }
+    }
+    pub fn has_any(&self) -> bool {
+        self.italic || self.code || self.link || self.bold
+    }
+}
